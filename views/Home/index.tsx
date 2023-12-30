@@ -13,6 +13,7 @@ import {
 } from "../../components/Themed";
 import WelcomeUser from "../../components/WelcomeUser";
 import Colors from "../../constants/Colors";
+import { ChevronRight } from "lucide-react-native";
 
 const ShoppingListCard = () => {
   const iconColor = useThemeColor({ light: "black", dark: "white" }, "text");
@@ -53,6 +54,7 @@ const ShoppingListCard = () => {
             <Text style={{ fontSize: 10 }}>34</Text>
             <Text style={{ opacity: 0.5, fontSize: 10 }}>/56</Text>
           </View>
+          <ChevronRight color={iconColor} size={20} />
         </TouchableOpacity>
       </View>
     </ThemedView>

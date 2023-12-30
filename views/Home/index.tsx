@@ -1,10 +1,4 @@
 import {
-  Search,
-  Settings,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react-native";
-import {
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -59,7 +53,6 @@ const ShoppingListCard = () => {
             <Text style={{ fontSize: 10 }}>34</Text>
             <Text style={{ opacity: 0.5, fontSize: 10 }}>/56</Text>
           </View>
-          <ChevronRight style={{ color: iconColor, marginLeft: 4 }} size={18} />
         </TouchableOpacity>
       </View>
     </ThemedView>
@@ -77,12 +70,8 @@ const Home = () => {
         lightColor={Colors.light.mainColor}
       >
         <View style={styles.menu}>
-          <TouchableOpacity>
-            <Search style={{ color: "white" }} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Settings style={{ color: "white" }} />
-          </TouchableOpacity>
+          <TouchableOpacity></TouchableOpacity>
+          <TouchableOpacity></TouchableOpacity>
         </View>
         <View>
           <WelcomeUser name="Genilson" />

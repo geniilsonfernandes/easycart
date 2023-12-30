@@ -13,8 +13,7 @@ import {
 } from "../../components/Themed";
 import WelcomeUser from "../../components/WelcomeUser";
 import Colors from "../../constants/Colors";
-import { ChevronRight } from "lucide-react-native";
-
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 const ShoppingListCard = () => {
   const iconColor = useThemeColor({ light: "black", dark: "white" }, "text");
   return (
@@ -54,7 +53,7 @@ const ShoppingListCard = () => {
             <Text style={{ fontSize: 10 }}>34</Text>
             <Text style={{ opacity: 0.5, fontSize: 10 }}>/56</Text>
           </View>
-          <ChevronRight color={iconColor} size={20} />
+          <FontAwesome name="angle-right" size={16} color={iconColor} />
         </TouchableOpacity>
       </View>
     </ThemedView>

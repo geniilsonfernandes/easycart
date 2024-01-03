@@ -9,6 +9,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import { Text } from "../components/Themed";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -60,6 +61,30 @@ function RootLayoutNav() {
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+          <Stack.Screen
+            name="new-list"
+            options={{
+              presentation: "containedModal",
+              animation: "slide_from_bottom",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="(lists)"
+            options={{
+              title: "New List",
+
+              presentation: "modal",
+            }}
+          />
+          <Stack.Screen
+            name="list"
+            options={{
+              presentation: "containedModal",
+              animation: "slide_from_bottom",
+              headerShown: false,
+            }}
+          />
         </Stack>
       </ThemeProvider>
     </SafeAreaProvider>

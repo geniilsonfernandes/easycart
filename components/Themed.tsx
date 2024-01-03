@@ -7,6 +7,8 @@ import {
   Text as DefaultText,
   useColorScheme,
   View as DefaultView,
+  TextInputProps as DefaultTextInputProps,
+  TextInput as DefaultTextInput,
 } from "react-native";
 
 import Colors from "../constants/Colors";
@@ -42,6 +44,51 @@ export function Text(props: TextProps) {
       style={[{ color, fontFamily: "Poppins" }, style]}
       {...otherProps}
     />
+  );
+}
+
+export function TextInput(props: DefaultTextInputProps) {
+  const textInputColor = useThemeColor(
+    {
+      light: "#181818",
+      dark: "#f1f1f1",
+    },
+    "text"
+  );
+  const backgroundInputColor = useThemeColor(
+    {
+      light: "#f1f1f1",
+      dark: "#181818",
+    },
+    "text"
+  );
+  const placeholderColor = useThemeColor(
+    {
+      light: "#BDBDBD",
+      dark: "#BDBDBD",
+    },
+    "text"
+  );
+
+  return (
+    <DefaultView style={{ gap: 10 }}>
+      <Text style={{ marginLeft: 4 }}>{props.placeholder}</Text>
+      <DefaultTextInput
+        {...props}
+        style={[
+          {
+            height: 60,
+            backgroundColor: backgroundInputColor,
+            color: textInputColor,
+            borderRadius: 10,
+            paddingLeft: 20,
+            fontFamily: "Poppins",
+          },
+        ]}
+        placeholder="Enter list name"
+        placeholderTextColor={placeholderColor}
+      />
+    </DefaultView>
   );
 }
 

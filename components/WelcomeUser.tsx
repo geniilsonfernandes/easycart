@@ -5,6 +5,14 @@ type Props = {
   name: string;
 };
 const WelcomeUser = ({ name }: Props) => {
+  const text = {
+    morning: "Bom dia",
+    afternoon: "Boa tarde",
+    night: "Boa noite",
+  };
+
+  const time = new Date().getHours();
+
   return (
     <View style={styles.container}>
       <Text
@@ -15,7 +23,7 @@ const WelcomeUser = ({ name }: Props) => {
           fontFamily: "Poppins",
         }}
       >
-        Bom dia,
+        {time < 12 ? text.morning : time < 18 ? text.afternoon : text.night},
       </Text>
       <Text
         style={{

@@ -13,19 +13,20 @@ const ShoppingListCard = () => {
   return (
     <ThemedView
       style={{
-        paddingVertical: 8,
+        paddingVertical: 10,
         borderRadius: 10,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: 8,
+        paddingHorizontal: 16,
       }}
       darkColor="#181818"
       lightColor="#f1f1f1"
     >
-      <View style={{ paddingLeft: 16 }}>
-        <Text style={{ fontSize: 12 }}>Lista de janeiro</Text>
-        <Text style={{ opacity: 0.5, fontSize: 12, marginTop: 4 }}>
+      <View>
+        <Text style={{ fontSize: 14 }}>Lista de janeiro</Text>
+        <Text style={{ opacity: 0.5, fontSize: 12, marginTop: 8 }}>
           R$ 560,70
         </Text>
       </View>
@@ -33,7 +34,6 @@ const ShoppingListCard = () => {
         <TouchableOpacity
           style={{
             height: 40,
-            paddingHorizontal: 8,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
@@ -46,14 +46,14 @@ const ShoppingListCard = () => {
               marginBottom: -3,
             }}
           >
-            <Text style={{ fontSize: 10 }}>34</Text>
-            <Text style={{ opacity: 0.5, fontSize: 10 }}>/56</Text>
+            <Text style={{ fontSize: 12 }}>34</Text>
+            <Text style={{ opacity: 0.5, fontSize: 12 }}>/56</Text>
           </View>
           <FontAwesome
             name="angle-right"
             size={20}
             color={iconColor}
-            style={{ marginLeft: 8 }}
+            style={{ marginLeft: 10 }}
           />
         </TouchableOpacity>
       </View>

@@ -6,10 +6,11 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { Text } from "../components/Themed";
+import Colors from "../constants/Colors";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,33 +57,50 @@ function RootLayoutNav() {
 
   return (
     <SafeAreaProvider>
+      <StatusBar style="light" />
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack
+          screenOptions={{
+            headerStyle: {
+              backgroundColor:
+                colorScheme !== "dark"
+                  ? Colors.light.mainColor
+                  : Colors.dark.mainColor,
+            },
+            headerTitleStyle: {
+              fontSize: 16,
+            },
+            headerTintColor: Colors.dark.text,
+            headerShadowVisible: false,
+            headerTitleAlign: "center",
+          }}
+        >
+          <Stack.Screen
+            name="index"
+            options={{
+              headerRight(props) {
+                return (
+                  <FontAwesome
+                    name="plus"
+                    size={16}
+                    color={Colors.light.text}
+                    onPress={() => router.push("/new-list")}
+                  />
+                );
+              },
+            }}
+          />
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
           <Stack.Screen
             name="new-list"
             options={{
-              presentation: "containedModal",
-              animation: "slide_from_bottom",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="(lists)"
-            options={{
-              title: "New List",
-
-              presentation: "modal",
+              headerTitle: "Nova lista",
             }}
           />
           <Stack.Screen
             name="list"
             options={{
-              presentation: "containedModal",
-              animation: "slide_from_bottom",
-              headerShown: false,
+              headerTitleAlign: "center",
             }}
           />
         </Stack>

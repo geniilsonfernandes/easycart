@@ -1,8 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, router } from "expo-router";
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   Animated,
+  RefreshControl,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
@@ -50,6 +51,15 @@ const Home = () => {
     extrapolate: "clamp",
   });
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return (
     <SafeScreen
       darkColor={Colors.dark.mainColor}
@@ -66,22 +76,13 @@ const Home = () => {
           darkColor={Colors.dark.mainColor}
           lightColor={Colors.light.mainColor}
         >
-          <Animated.View style={{ transform: [{ translateY: translateMenu }] }}>
-            <View style={styles.menu}>
-              <TouchableOpacity>
-                <FontAwesome name="search" size={20} color={"white"} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <FontAwesome name="cog" size={20} color={"white"} />
-              </TouchableOpacity>
-            </View>
-          </Animated.View>
           <View>
             <Animated.View
               style={[
                 {
                   transform: [{ translateY: translateTitle }],
                   opacity: opacityTitle,
+                  paddingBottom: 24,
                 },
               ]}
             >
@@ -106,8 +107,98 @@ const Home = () => {
           }
         )}
         scrollEventThrottle={1}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/modal")}>
+            <ShoppingListCard />
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("/modal")}>
             <ShoppingListCard />
           </TouchableOpacity>
@@ -124,7 +215,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 280,
+    height: 180,
     width: "100%",
     position: "absolute",
     left: 0,
@@ -134,7 +225,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "center",
     width: "100%",
     paddingHorizontal: 16,
@@ -149,12 +240,13 @@ const styles = StyleSheet.create({
   },
   headerContent: {
     width: "100%",
-    height: 280,
-    justifyContent: "space-between",
+    height: 180,
+    justifyContent: "flex-end",
   },
   content: {
     paddingHorizontal: 16,
-    paddingTop: 280 + 14,
+    paddingTop: 180 + 14,
+    elevation: 100,
   },
 });
 

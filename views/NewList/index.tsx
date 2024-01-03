@@ -1,27 +1,33 @@
-import React from "react";
-import CustomHeader from "../../components/CustomHeader";
-import SafeScreen from "../../components/SafeScreen";
+import { router } from "expo-router";
+import React, { useCallback, useMemo, useRef } from "react";
 import {
-  View as ThemedView,
-  Text as ThemedText,
-  useThemeColor,
-  TextInput,
-} from "../../components/Themed";
-import Colors from "../../constants/Colors";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import CurrencyInput from "react-native-currency-input";
 import Button from "../../components/Button";
-import { router } from "expo-router";
+import { TextInput, View as ThemedView } from "../../components/Themed";
+import Colors from "../../constants/Colors";
+import BottomSheet from "@gorhom/bottom-sheet";
 const NewList = () => {
+  const bottomSheetRef = useRef<BottomSheet>(null);
   const [value, setValue] = React.useState<number | null>(100);
+  const snapPoints = useMemo(() => ["25%", "50%", "75%", "100%"], []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
 
   return (
-    <SafeScreen
+    <ThemedView
       darkColor={Colors.dark.mainColor}
       lightColor={Colors.light.mainColor}
+      style={styles.container}
     >
-      <ThemedView style={styles.container}>
-        <CustomHeader title="Nova lista" />
+      <ThemedView style={styles.body}>
         <ScrollView style={styles.inputGroup}>
           <TextInput placeholder="Nome da lista" />
 
@@ -37,20 +43,35 @@ const NewList = () => {
           />
         </ScrollView>
       </ThemedView>
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+        enablePanDownToClose
+      >
+        <View>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
       <ThemedView style={styles.footer}>
         <TouchableOpacity onPress={() => router.push("/list")}>
           <Button title="Criar nova lista" />
         </TouchableOpacity>
       </ThemedView>
-    </SafeScreen>
+    </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 30,
+  },
+  body: {
+    flex: 1,
     borderTopEndRadius: 20,
-    marginTop: 20,
     borderTopLeftRadius: 20,
     paddingHorizontal: 16,
   },

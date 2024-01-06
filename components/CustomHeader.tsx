@@ -1,7 +1,13 @@
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
-import { TouchableOpacity, View, useColorScheme } from "react-native";
+import {
+  Pressable,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from "react-native";
 import { Text as ThemedText } from "../components/Themed";
 
 type Props = {
@@ -19,12 +25,13 @@ const CustomHeader = ({ title }: Props) => {
         height: 64,
       }}
     >
-      <TouchableOpacity
+      <TouchableHighlight
+        underlayColor="gray"
         style={{ position: "absolute", left: 0 }}
         onPress={() => router.back()}
       >
         <Feather name="arrow-left" size={24} color={iconColor} />
-      </TouchableOpacity>
+      </TouchableHighlight>
 
       <ThemedText>{title}</ThemedText>
     </View>

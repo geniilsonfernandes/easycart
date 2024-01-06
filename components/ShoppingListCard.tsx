@@ -1,7 +1,7 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-import { View as ThemedView, useThemeColor } from "../components/Themed";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
+import { View as ThemedView, useThemeColor, Text } from "../components/Themed";
 import Colors from "../constants/Colors";
 
 const ShoppingListCard = () => {
@@ -12,23 +12,13 @@ const ShoppingListCard = () => {
 
   return (
     <ThemedView
-      style={{
-        paddingVertical: 10,
-        borderRadius: 10,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: 8,
-        paddingHorizontal: 16,
-      }}
+      style={styles.container}
       darkColor="#181818"
       lightColor="#f1f1f1"
     >
       <View>
-        <Text style={{ fontSize: 14 }}>Lista de janeiro</Text>
-        <Text style={{ opacity: 0.5, fontSize: 12, marginTop: 8 }}>
-          R$ 560,70
-        </Text>
+        <Text style={styles.title}>Lista de janeiro</Text>
+        <Text style={styles.subTitle}>R$ 560,70</Text>
       </View>
       <View>
         <TouchableOpacity
@@ -43,22 +33,37 @@ const ShoppingListCard = () => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginBottom: -3,
             }}
           >
             <Text style={{ fontSize: 12 }}>34</Text>
             <Text style={{ opacity: 0.5, fontSize: 12 }}>/56</Text>
           </View>
-          <FontAwesome
-            name="angle-right"
-            size={20}
-            color={iconColor}
-            style={{ marginLeft: 10 }}
-          />
+          <Pressable>
+            <Ionicons name="chevron-forward" size={20} color={iconColor} />
+          </Pressable>
         </TouchableOpacity>
       </View>
     </ThemedView>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 10,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 8,
+    paddingHorizontal: 16,
+  },
+  title: {
+    fontSize: 14,
+  },
+  subTitle: {
+    fontSize: 12,
+    opacity: 0.5,
+    fontWeight: "bold",
+  },
+});
 
 export default ShoppingListCard;

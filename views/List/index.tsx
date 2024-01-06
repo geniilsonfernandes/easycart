@@ -10,12 +10,21 @@ import {
 } from "react-native";
 import CurrencyInput from "react-native-currency-input";
 import Button from "../../components/Button";
-import { Text, TextInput, View as ThemedView } from "../../components/Themed";
+import {
+  Text,
+  TextInput,
+  View as ThemedView,
+  useThemeColor,
+} from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import ItemListCard from "../../components/ItemListCard";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
+import HeaderStatistics from "./components/HeaderStatistics";
 const NewList = () => {
-  const [value, setValue] = React.useState<number | null>(100);
+  const iconColor = useThemeColor(
+    { light: Colors.dark.background, dark: Colors.light.background },
+    "text"
+  );
 
   const items = Array.from({ length: 100 }, (_, i) => i + 1);
 
@@ -36,30 +45,7 @@ const NewList = () => {
         </Text>
         <Text style={{ fontSize: 12, color: "white" }}>20 de junho</Text>
       </View>
-      <ThemedView
-        aria-label="Analise de Gastos"
-        style={{
-          borderTopEndRadius: 20,
-          borderTopLeftRadius: 20,
-          paddingHorizontal: 20,
-          paddingVertical: 16,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <View>
-          <Text style={{ fontSize: 14 }}>Produtos</Text>
-          <Text style={{ fontSize: 12, fontWeight: "bold" }}>R$ 500.00</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 14 }}>Orçamento</Text>
-          <Text style={{ fontSize: 12, fontWeight: "bold" }}>R$ 500.00</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 14 }}>Total</Text>
-          <Text style={{ fontSize: 12, fontWeight: "bold" }}>R$ 500.00</Text>
-        </View>
-      </ThemedView>
+      <HeaderStatistics />
       <ThemedView
         style={{
           flex: 1,
@@ -77,6 +63,10 @@ const NewList = () => {
             style={{
               flex: 1,
             }}
+            initialNumToRender={2}
+            removeClippedSubviews={true}
+            maxToRenderPerBatch={2}
+            windowSize={2}
             data={items}
             keyExtractor={(item) => item.toString()}
             renderItem={({ item }) => <ItemListCard />}
@@ -84,70 +74,24 @@ const NewList = () => {
         </View>
       </ThemedView>
 
-      <ThemedView
-        style={{
-          alignItems: "center",
-          paddingHorizontal: 16,
-          paddingVertical: 16,
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
+      <ThemedView style={styles.footer}>
         <Pressable
-          style={{
-            width: 48,
-            height: 48,
-            borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-          }}
+          style={styles.buttonGhost}
           onPress={() => router.push("/list/new-item")}
         >
-          <Ionicons name="share-social-sharp" size={24} color="black" />
+          <Feather name="share-2" size={20} color={iconColor} />
         </Pressable>
         <Pressable
-          style={{
-            width: 48,
-            height: 48,
-            borderRadius: 10,
-            backgroundColor: Colors.light.mainColor,
-            justifyContent: "center",
-            alignItems: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-          }}
-          onPress={() => router.push("/list/new-item")}
+          style={styles.buttonFilled}
+          onPress={() => router.push("/add-item")}
         >
-          <Ionicons name="add" size={24} color="black" />
+          <Ionicons name="add" size={24} color="white" />
         </Pressable>
         <Pressable
-          style={{
-            width: 48,
-            height: 48,
-            borderRadius: 10,
-
-            justifyContent: "center",
-            alignItems: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-          }}
+          style={styles.buttonGhost}
           onPress={() => router.push("/list/new-item")}
         >
-          <Ionicons name="search" size={24} color="black" />
+          <Ionicons name="search" size={20} color={iconColor} />
         </Pressable>
       </ThemedView>
     </ThemedView>
@@ -164,7 +108,39 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   inputGroup: { gap: 24, marginTop: 20 },
-  footer: { paddingHorizontal: 24, height: 56 },
+  footer: {
+    alignItems: "center",
+    paddingHorizontal: 16,
+
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+
+  buttonFilled: {
+    width: 48,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: Colors.light.mainColor,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -48,
+    shadowColor: "rgb(7, 109, 46)",
+    shadowOffset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 0.5,
+    elevation: 6,
+  },
+  buttonGhost: {
+    width: 48,
+    height: 48,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.7,
+  },
 });
 
 export default NewList;

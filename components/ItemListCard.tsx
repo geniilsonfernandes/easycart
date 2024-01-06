@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
-  Alert,
   Modal,
   Pressable,
   StyleSheet,
@@ -9,14 +10,21 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Colors from "../constants/Colors";
 import { Text, View as ThemedView, useThemeColor } from "./Themed";
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
 
-const ItemListCard = () => {
+const ItemListCard = React.memo(() => {
   const iconColor = useThemeColor(
     { light: Colors.dark.background, dark: Colors.light.background },
     "text"
   );
+  const checkboxBackgroundColor = useThemeColor(
+    {
+      light: "#d6d6d6",
+      dark: "#4d4d4d",
+    },
+    "background"
+  );
+
+  const [active, setActive] = useState(false);
 
   const item = {
     name: "Agua Sanitária",
@@ -24,92 +32,76 @@ const ItemListCard = () => {
     quantity: 2,
     isChecked: false,
   };
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
 
   return (
     <ThemedView
-      style={{
-        paddingVertical: 10,
-        borderRadius: 10,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: 8,
-        paddingHorizontal: 16,
-      }}
+      style={styles.container}
       darkColor="#181818"
       lightColor="#f1f1f1"
     >
-      <View
+      <Pressable
         style={{
-          flexDirection: "row",
+          width: 30,
+          height: 30,
+          borderRadius: 8,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: active ? "#777777" : checkboxBackgroundColor,
         }}
+        onPress={() => setActive(!active)}
       >
-        <BouncyCheckbox
-          size={24}
-          fillColor="#4d4d4d"
-          unfillColor="#4d4d4d"
-          iconStyle={{ borderColor: "#f1f1f1", borderRadius: 6 }}
-          innerIconStyle={{ borderWidth: 0, borderRadius: 6 }}
-          onPress={(isChecked: boolean) => {}}
-        />
-        <View
-          style={{
-            gap: 2,
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View>
-            <Text style={{ fontSize: 14, maxWidth: 200 }}>{item.name}</Text>
-            <Text style={{ fontSize: 12, opacity: 0.5 }}>
-              R${item.price * item.quantity} (x{item.quantity})
-            </Text>
-          </View>
-          <Pressable onPress={() => setModalVisible(true)}>
-            <Ionicons name="chevron-forward" size={20} color={iconColor} />
-          </Pressable>
-        </View>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          closeModal();
-        }}
-      >
-        <View style={styles.centeredView}>
-          <TouchableWithoutFeedback onPress={closeModal}>
-            <View style={styles.clickOutside} />
-          </TouchableWithoutFeedback>
-          <ThemedView
-            style={styles.modalView}
-            darkColor="#181818"
-            lightColor="#f1f1f1"
+        {active ? <Ionicons name="checkmark" size={20} color="white" /> : null}
+      </Pressable>
+      <View style={styles.body}>
+        <View>
+          <Text
+            style={
+              (styles.title,
+              { textDecorationLine: active ? "line-through" : "none" })
+            }
           >
-            <Text style={styles.modalText}>config desse item</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>config desse item</Text>
-            </Pressable>
-          </ThemedView>
+            {item.name}
+          </Text>
+          <Text style={styles.subTitle}>
+            R${item.price * item.quantity} (x{item.quantity})
+          </Text>
         </View>
-      </Modal>
+        <Pressable>
+          <Ionicons name="chevron-forward" size={20} color={iconColor} />
+        </Pressable>
+      </View>
     </ThemedView>
   );
-};
+});
 
 const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 10,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 8,
+    paddingHorizontal: 16,
+    gap: 16,
+  },
+  body: {
+    gap: 2,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 14,
+    maxWidth: 200,
+  },
+  subTitle: {
+    fontSize: 12,
+    opacity: 0.5,
+    fontWeight: "bold",
+  },
+
   centeredView: {
     flex: 1,
     justifyContent: "flex-end",

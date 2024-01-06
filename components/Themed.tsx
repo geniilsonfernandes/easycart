@@ -71,7 +71,7 @@ export function TextInput(props: DefaultTextInputProps) {
   );
 
   return (
-    <DefaultView style={{ gap: 10 }}>
+    <DefaultView style={{ gap: 10, flex: 1, marginTop: 16 }}>
       <Text style={{ marginLeft: 4, opacity: 0.5 }}>{props.placeholder}</Text>
       <DefaultTextInput
         {...props}
@@ -83,7 +83,6 @@ export function TextInput(props: DefaultTextInputProps) {
             borderRadius: 10,
             paddingLeft: 20,
             fontFamily: "Poppins",
-            marginBottom: 16,
           },
         ]}
         placeholder="Enter list name"

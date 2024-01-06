@@ -9,8 +9,10 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { Alert, Pressable, View, useColorScheme } from "react-native";
 import Colors from "../constants/Colors";
+import { Feather } from "@expo/vector-icons";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -75,17 +77,53 @@ function RootLayoutNav() {
             headerTitleAlign: "center",
           }}
         >
+          <Stack.Screen name="sheet" options={{}} />
           <Stack.Screen
             name="index"
             options={{
+              headerTitle: "",
+              headerLeft(props) {
+                return (
+                  <Pressable
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 16,
+                      backgroundColor: Colors.light.mainColor,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Feather
+                      name="user"
+                      size={16}
+                      color={Colors.dark.text}
+                      onPress={() => {}}
+                    />
+                  </Pressable>
+                );
+              },
               headerRight(props) {
                 return (
-                  <FontAwesome
-                    name="plus"
-                    size={16}
-                    color={Colors.light.text}
-                    onPress={() => router.push("/new-list")}
-                  />
+                  <Pressable
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 16,
+                      backgroundColor: Colors.light.mainColor,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onPress={() => {
+                      Alert.alert("Settings");
+                    }}
+                  >
+                    <Feather
+                      name="settings"
+                      size={16}
+                      color={Colors.dark.text}
+                    />
+                  </Pressable>
                 );
               },
             }}
@@ -101,6 +139,12 @@ function RootLayoutNav() {
             name="list"
             options={{
               headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen
+            name="add-item"
+            options={{
+              headerTitle: "Adicionar item",
             }}
           />
         </Stack>

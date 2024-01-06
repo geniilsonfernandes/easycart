@@ -19,17 +19,26 @@ import {
 } from "../../components/Themed";
 import WelcomeUser from "../../components/WelcomeUser";
 import Colors from "../../constants/Colors";
+import SectionHeader from "../../components/SectionHeader";
 
 const Home = () => {
   const contentColor = useThemeColor(
     { light: "white", dark: "black" },
     "background"
   );
+  const headerBackgroundColor = useThemeColor(
+    {
+      light: Colors.light.mainColor,
+      dark: Colors.dark.mainColor,
+    },
+    "mainColor"
+  );
+
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const translateHeader = scrollY.interpolate({
-    inputRange: [0, 170],
-    outputRange: [0, -170],
+    inputRange: [0, 120],
+    outputRange: [0, -120],
     extrapolate: "clamp",
   });
 
@@ -45,12 +54,6 @@ const Home = () => {
     extrapolate: "clamp",
   });
 
-  const translateMenu = scrollY.interpolate({
-    inputRange: [0, 170],
-    outputRange: [0, 170],
-    extrapolate: "clamp",
-  });
-
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -61,39 +64,32 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeScreen
-      darkColor={Colors.dark.mainColor}
-      lightColor={Colors.light.mainColor}
-    >
+    <View style={{ flex: 1, backgroundColor: headerBackgroundColor }}>
       <Animated.View
         style={[
           styles.header,
+          {
+            backgroundColor: headerBackgroundColor,
+          },
+
           { transform: [{ translateY: translateHeader }] },
         ]}
       >
-        <ThemedView
-          style={styles.headerContent}
-          darkColor={Colors.dark.mainColor}
-          lightColor={Colors.light.mainColor}
+        <Animated.View
+          style={[
+            {
+              transform: [{ translateY: translateTitle }],
+              opacity: opacityTitle,
+              paddingHorizontal: 16,
+              flex: 1,
+              justifyContent: "flex-end",
+            },
+          ]}
         >
-          <View>
-            <Animated.View
-              style={[
-                {
-                  transform: [{ translateY: translateTitle }],
-                  opacity: opacityTitle,
-                  paddingBottom: 24,
-                },
-              ]}
-            >
-              <WelcomeUser name="Genilson" />
-            </Animated.View>
+          <WelcomeUser name="Genilson" />
+        </Animated.View>
 
-            <ThemedView style={styles.headerFooter}>
-              <Text style={{ fontSize: 16 }}>Lista de compras</Text>
-            </ThemedView>
-          </View>
-        </ThemedView>
+        <SectionHeader title="Listas de compras" />
       </Animated.View>
       <Animated.ScrollView
         contentContainerStyle={styles.content}
@@ -111,105 +107,24 @@ const Home = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/modal")}>
-            <ShoppingListCard />
-          </TouchableOpacity>
-        </TouchableOpacity>
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
+        <ShoppingListCard />
       </Animated.ScrollView>
       <ThemedView style={{ paddingHorizontal: 24, paddingVertical: 16 }}>
         <TouchableOpacity onPress={() => router.push("/new-list")}>
           <Button title="Criar nova lista" />
         </TouchableOpacity>
       </ThemedView>
-    </SafeScreen>
+    </View>
   );
 };
 
@@ -221,32 +136,12 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     zIndex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-  menu: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    width: "100%",
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-  },
-  headerFooter: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    borderTopEndRadius: 30,
-    borderTopStartRadius: 30,
-    marginTop: -2,
-  },
-  headerContent: {
-    width: "100%",
-    height: 180,
-    justifyContent: "flex-end",
+
+    justifyContent: "space-between",
   },
   content: {
     paddingHorizontal: 16,
-    paddingTop: 180 + 14,
-    elevation: 100,
+    paddingTop: 180 + 16,
   },
 });
 

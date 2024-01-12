@@ -85,13 +85,38 @@ const AddItem = () => {
           </View>
         </ScrollView>
       </ThemedView>
-
+      <ThemedView
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          paddingHorizontal: 24,
+          paddingVertical: 16,
+          borderTopWidth: 1,
+          borderTopColor: "#f1f1f1",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 16,
+          }}
+        >
+          Total
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            opacity: 0.5,
+          }}
+        >
+          R$ 5000.00
+        </Text>
+      </ThemedView>
       <ThemedView style={styles.footer}>
         <TouchableOpacity
           style={{ flex: 1 }}
           onPress={() => router.push("/list")}
         >
-          <Button title="Salva" />
+          <Button title="adicionar item" />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonTrash}

@@ -4,7 +4,12 @@ import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { View as ThemedView, useThemeColor } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
-const Footer = () => {
+
+type Props = {
+  onSearch: () => void;
+  onAdd: () => void;
+};
+const Footer = ({ onSearch }: Props) => {
   const iconColor = useThemeColor(
     { light: Colors.dark.background, dark: Colors.light.background },
     "text"
@@ -24,10 +29,7 @@ const Footer = () => {
       >
         <Ionicons name="add" size={24} color="white" />
       </Pressable>
-      <Pressable
-        style={styles.buttonGhost}
-        onPress={() => router.push("/list/new-item")}
-      >
+      <Pressable style={styles.buttonGhost} onPress={() => onSearch()}>
         <Ionicons name="search" size={20} color={iconColor} />
       </Pressable>
     </ThemedView>

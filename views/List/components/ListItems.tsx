@@ -1,5 +1,12 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Platform,
+  StyleSheet,
+  TouchableNativeFeedback,
+  View,
+} from "react-native";
 import { View as ThemedView } from "../../../components/Themed";
 import ItemListCard from "../../../components/ItemListCard";
 

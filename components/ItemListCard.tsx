@@ -2,8 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
+  TouchableNativeFeedback,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
@@ -34,43 +36,53 @@ const ItemListCard = React.memo(() => {
   };
 
   return (
-    <ThemedView
-      style={styles.container}
-      darkColor="#181818"
-      lightColor="#f1f1f1"
+    <TouchableNativeFeedback
+      background={
+        Platform.OS === "android"
+          ? TouchableNativeFeedback.SelectableBackground()
+          : undefined
+      }
     >
-      <Pressable
-        style={{
-          width: 30,
-          height: 30,
-          borderRadius: 8,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: active ? "#777777" : checkboxBackgroundColor,
-        }}
-        onPress={() => setActive(!active)}
+      <ThemedView
+        style={styles.container}
+        darkColor="#181818"
+        lightColor="#f1f1f1"
       >
-        {active ? <Ionicons name="checkmark" size={20} color="white" /> : null}
-      </Pressable>
-      <View style={styles.body}>
-        <View>
-          <Text
-            style={
-              (styles.title,
-              { textDecorationLine: active ? "line-through" : "none" })
-            }
-          >
-            {item.name}
-          </Text>
-          <Text style={styles.subTitle}>
-            R${item.price * item.quantity} (x{item.quantity})
-          </Text>
-        </View>
-        <Pressable>
-          <Ionicons name="chevron-forward" size={20} color={iconColor} />
+        <Pressable
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 8,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: active ? "#777777" : checkboxBackgroundColor,
+          }}
+          onPress={() => setActive(!active)}
+        >
+          {active ? (
+            <Ionicons name="checkmark" size={20} color="white" />
+          ) : null}
         </Pressable>
-      </View>
-    </ThemedView>
+        <View style={styles.body}>
+          <View>
+            <Text
+              style={
+                (styles.title,
+                { textDecorationLine: active ? "line-through" : "none" })
+              }
+            >
+              {item.name}
+            </Text>
+            <Text style={styles.subTitle}>
+              R${item.price * item.quantity} (x{item.quantity})
+            </Text>
+          </View>
+          <Pressable>
+            <Ionicons name="chevron-forward" size={20} color={iconColor} />
+          </Pressable>
+        </View>
+      </ThemedView>
+    </TouchableNativeFeedback>
   );
 });
 

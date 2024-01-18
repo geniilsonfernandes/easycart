@@ -1,25 +1,21 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import {
   Animated,
+  FlatList,
   RefreshControl,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
 import Button from "../../components/Button";
-import SafeScreen from "../../components/SafeScreen";
+import SectionHeader from "../../components/SectionHeader";
 import ShoppingListCard from "../../components/ShoppingListCard";
-import {
-  Text,
-  View as ThemedView,
-  useThemeColor,
-} from "../../components/Themed";
+import { View as ThemedView, useThemeColor } from "../../components/Themed";
 import WelcomeUser from "../../components/WelcomeUser";
 import Colors from "../../constants/Colors";
-import SectionHeader from "../../components/SectionHeader";
+import { ListDTO, getAll } from "../../store";
+import { useFocusEffect } from "expo-router";
 
 const Home = () => {
   const contentColor = useThemeColor(
@@ -54,15 +50,17 @@ const Home = () => {
     extrapolate: "clamp",
   });
 
-  const [refreshing, setRefreshing] = useState(false);
+  const [list, setList] = useState<ListDTO[]>();
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getAll().then((res) => {
+        console.log(res.map((item) => item.id));
 
+        setList(res);
+      });
+    }, [])
+  );
   return (
     <View style={{ flex: 1, backgroundColor: headerBackgroundColor }}>
       <Animated.View
@@ -89,7 +87,7 @@ const Home = () => {
           <WelcomeUser name="Genilson" />
         </Animated.View>
 
-        <SectionHeader title="Listas de compras" />
+        <SectionHeader title="Minhas listas" />
       </Animated.View>
       <Animated.ScrollView
         contentContainerStyle={styles.content}
@@ -103,21 +101,9 @@ const Home = () => {
           }
         )}
         scrollEventThrottle={1}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
       >
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
-        <ShoppingListCard />
+        {list &&
+          list.map((item, i) => <ShoppingListCard name={item.name} key={i} />)}
       </Animated.ScrollView>
       <ThemedView style={{ paddingHorizontal: 24, paddingVertical: 16 }}>
         <TouchableOpacity onPress={() => router.push("/new-list")}>

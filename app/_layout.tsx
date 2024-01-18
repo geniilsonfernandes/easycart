@@ -147,6 +147,12 @@ function RootLayoutNav() {
               headerTitle: "Adicionar item",
             }}
           />
+          <Stack.Screen
+            name="/shoop"
+            options={{
+              headerTitle: "Adicionar item",
+            }}
+          />
         </Stack>
       </ThemeProvider>
     </SafeAreaProvider>

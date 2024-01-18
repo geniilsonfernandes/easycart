@@ -4,7 +4,12 @@ import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { View as ThemedView, useThemeColor, Text } from "../components/Themed";
 import Colors from "../constants/Colors";
 
-const ShoppingListCard = () => {
+type ShoppingListCardProps = {
+  name: string;
+  price?: number;
+  items?: number;
+};
+const ShoppingListCard = ({ items, name, price }: ShoppingListCardProps) => {
   const iconColor = useThemeColor(
     { light: Colors.dark.background, dark: Colors.light.background },
     "text"
@@ -17,7 +22,7 @@ const ShoppingListCard = () => {
       lightColor="#f1f1f1"
     >
       <View>
-        <Text style={styles.title}>Lista de janeiro</Text>
+        <Text style={styles.title}>{name}</Text>
         <Text style={styles.subTitle}>R$ 560,70</Text>
       </View>
       <View>

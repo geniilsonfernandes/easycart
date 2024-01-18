@@ -85,7 +85,7 @@ export function TextInput(props: DefaultTextInputProps) {
             fontFamily: "Poppins",
           },
         ]}
-        placeholder="Enter list name"
+        placeholder={props.placeholder}
         placeholderTextColor={placeholderColor}
       />
     </DefaultView>
